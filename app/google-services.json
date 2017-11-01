@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "929227666835",
+    "firebase_url": "https://jongtalad-91591.firebaseio.com",
+    "project_id": "jongtalad-91591",
+    "storage_bucket": "jongtalad-91591.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929227666835:android:b9f7728ded4dc906",
+        "android_client_info": {
+          "package_name": "com.example.teerasaksathu.customers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929227666835-3djotboajulk07pher3b9va0sr029d1j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.teerasaksathu.customers",
+            "certificate_hash": "52f1e150e99a31d8fe47d82ff0ad43fbb4f4c1bb"
+          }
+        },
+        {
+          "client_id": "929227666835-ck21t03fhamf8bg8s3liepf5lmaep51s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPM-LKz-KhdIGUPgR8W7o5dqkKgU8O7Ls"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929227666835-ck21t03fhamf8bg8s3liepf5lmaep51s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

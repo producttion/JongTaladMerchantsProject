@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#ff4081</color>
+    <color name="lockStatusOuccupied">#FF0700</color>
+    <color name="lockStatusChoose">#25B209</color>
+    <color name="lockStatausNotOuccupied">#ffffff</color>
+    <color name="lockNameColor">#000000</color>
+    <color name="text_color">#ffffff</color>
+    <color name="btn_bg_color">#41E7C0</color>
+</resources>
