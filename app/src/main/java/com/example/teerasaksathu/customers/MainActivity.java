@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(s);
             Log.d("Post", "==>" + s);
             if (s.equals("1")) {
-                Toast.makeText(MainActivity.this, "Login success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Login สำเร็จ", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, LockReservation.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view == btnLoginPage) {
-            if (Checklogin()) {
+            if (checkLogin()) {
                 username = etUsername.getText().toString().trim();
                 password = etPassword.getText().toString().trim();
                 Login login = new Login();
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private boolean Checklogin() {
+    private boolean checkLogin() {
         if (etUsername.length() == 0 || etPassword.length() == 0)
             return false;
         else

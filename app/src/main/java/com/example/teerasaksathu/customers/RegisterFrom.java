@@ -19,8 +19,10 @@ import okhttp3.Response;
 public class RegisterFrom extends AppCompatActivity implements View.OnClickListener {
 
     Button conflButtonrm;
-    EditText editTextID_card,editText_Name,editText_Surname,editText_Phone,editText_Username,editText_Password, editText_conflrmPassWord;
-    String ID_CardString,nameString,sruNameString,phoneString,usernameString,passwordString, conlrmPassWordString;
+    EditText editTextID_card,editText_Name,editText_Surname,editText_Phone,
+            editText_Username,editText_Password, editText_conflrmPassWord;
+    String ID_CardString,nameString,surNameString,
+            phoneString,usernameString,passwordString, conlrmPassWordString;
 
 
     @Override
@@ -28,12 +30,12 @@ public class RegisterFrom extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_from);
 
-        bingVal();
+        initInstances();
         conflButtonrm.setOnClickListener(this);
 
     }
 
-    private void bingVal() {
+    private void initInstances() {
 
         conflButtonrm = (Button) findViewById(R.id.btncomflrmregister);
         editTextID_card = (EditText) findViewById(R.id.edidcard);
@@ -50,10 +52,7 @@ public class RegisterFrom extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
 
         if (view == conflButtonrm) {
-
             checkvalue();
-
-
         }
     }
 
@@ -61,14 +60,14 @@ public class RegisterFrom extends AppCompatActivity implements View.OnClickListe
 
         ID_CardString = editTextID_card.getText().toString().trim();
         nameString = editText_Name.getText().toString().trim();
-        sruNameString = editText_Surname.getText().toString().trim();
+        surNameString = editText_Surname.getText().toString().trim();
         phoneString = editText_Phone.getText().toString().trim();
         usernameString = editText_Username.getText().toString().trim();
         passwordString = editText_Password.getText().toString().trim();
         conlrmPassWordString = editText_conflrmPassWord.getText().toString().trim();
 
 
-        if (ID_CardString.length() == 0 || nameString.length() == 0 || sruNameString.length() == 0 || phoneString.length() == 0 || usernameString.length() == 0 || passwordString.length() == 0 || conlrmPassWordString.length() == 0) {
+        if (ID_CardString.length() == 0 || nameString.length() == 0 || surNameString.length() == 0 || phoneString.length() == 0 || usernameString.length() == 0 || passwordString.length() == 0 || conlrmPassWordString.length() == 0) {
             Toast.makeText(getApplicationContext(), "กรอกให้ครบทุกช่อง", Toast.LENGTH_SHORT).show();
         } else {
             if (ID_CardString.length() != 13) {
@@ -85,9 +84,9 @@ public class RegisterFrom extends AppCompatActivity implements View.OnClickListe
 
                         Log.d("name", nameString);
                         Log.d("id", ID_CardString);
-                        Log.d("sur", sruNameString);
+                        Log.d("sur", surNameString);
                         Log.d("user", usernameString);
-                        Log.d("passwod", passwordString);
+                        Log.d("password", passwordString);
                         Log.d("phone", phoneString);
 
                         upDataToDB upDataToDB = new upDataToDB();
@@ -120,7 +119,7 @@ public class RegisterFrom extends AppCompatActivity implements View.OnClickListe
                 RequestBody requestBody = new FormBody.Builder()
                         .add("id_card", ID_CardString)
                         .add("name", nameString)
-                        .add("surname", sruNameString)
+                        .add("surname", surNameString)
                         .add("phone", phoneString)
                         .add("username", usernameString)
                         .add("password", passwordString)
