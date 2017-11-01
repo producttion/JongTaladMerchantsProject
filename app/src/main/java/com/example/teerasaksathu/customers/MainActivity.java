@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private class CheckLogin extends AsyncTask<String, Void, String> {
+    private class Login extends AsyncTask<String, Void, String> {
 
         private static final String URL = "http://www.jongtalad.com/doc/login_merchants.php";
 
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra("username", username);
                 startActivity(intent);
             } else {
-                Toast.makeText(MainActivity.this, "Login fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Username หรือ Password ผิด", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -109,10 +109,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view == btnLoginPage) {
-            username = etUsername.getText().toString().trim();
-            password = etPassword.getText().toString().trim();
-            CheckLogin checkLogin = new CheckLogin();
-            checkLogin.execute(username, password);
+            if (Checklogin()) {
+                username = etUsername.getText().toString().trim();
+                password = etPassword.getText().toString().trim();
+                Login login = new Login();
+                login.execute(username, password);
+
+            } else {
+                Toast.makeText(MainActivity.this, "โปรดกรอก Username และ Password", Toast.LENGTH_SHORT).show();
+            }
 
         } else if (view == btnRegisterPage) {
             Intent intent = new Intent(getApplicationContext(), RegisterFrom.class);
@@ -120,5 +125,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
+    private boolean Checklogin() {
+        if (etUsername.length() == 0 || etPassword.length() == 0)
+            return false;
+        else
+            return true;
+    }
 }
