@@ -19,10 +19,10 @@ import okhttp3.Response;
 public class RegisterFrom extends AppCompatActivity implements View.OnClickListener {
 
     Button conflButtonrm;
-    EditText editTextID_card,editText_Name,editText_Surname,editText_Phone,
-            editText_Username,editText_Password, editText_conflrmPassWord;
-    String ID_CardString,nameString,surNameString,
-            phoneString,usernameString,passwordString, conlrmPassWordString;
+    EditText editTextID_card, editText_Name, editText_Surname, editText_Phone,
+            editText_Username, editText_Password, editText_conflrmPassWord;
+    String ID_CardString, nameString, surNameString,
+            phoneString, usernameString, passwordString, conlrmPassWordString;
 
 
     @Override
@@ -76,53 +76,53 @@ public class RegisterFrom extends AppCompatActivity implements View.OnClickListe
                 if (passwordString.length() < 8) {
                     Toast.makeText(getApplicationContext(), "กรอก password อย่างน้อย 8 ตัว", Toast.LENGTH_SHORT).show();
                 } else {
-                if (passwordString.equals(conlrmPassWordString)) {
+                    if (passwordString.equals(conlrmPassWordString)) {
 
-                    if (phoneString.length() != 10) {
-                        Toast.makeText(getApplicationContext(), "กรอกหมายเลขโทรศัพท์ให้ครบ 10 หลัก", Toast.LENGTH_SHORT).show();
+                        if (phoneString.length() != 10) {
+                            Toast.makeText(getApplicationContext(), "กรอกหมายเลขโทรศัพท์ให้ครบ 10 หลัก", Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            //TODO delete later
+//                            Log.d("name", nameString);
+//                            Log.d("id", ID_CardString);
+//                            Log.d("sur", surNameString);
+//                            Log.d("user", usernameString);
+//                            Log.d("password", passwordString);
+//                            Log.d("phone", phoneString);
+
+                            Register register = new Register();
+                            register.execute(ID_CardString, nameString, surNameString, phoneString, usernameString, passwordString );
+
+
+                        }
                     } else {
-
-                        Log.d("name", nameString);
-                        Log.d("id", ID_CardString);
-                        Log.d("sur", surNameString);
-                        Log.d("user", usernameString);
-                        Log.d("password", passwordString);
-                        Log.d("phone", phoneString);
-
-                        upDataToDB upDataToDB = new upDataToDB();
-                        upDataToDB.execute();
-
-
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "password ไม่ตรงกัน", Toast.LENGTH_SHORT).show();
-                }//password กับ comflempassword ต้องตรงกัน
-            }//passwordต้องไม่น้อยกว่า 8
-         }//บัตรประชาชนต้องมี 13 หลัก
+                        Toast.makeText(getApplicationContext(), "password ไม่ตรงกัน", Toast.LENGTH_SHORT).show();
+                    }//password กับ comflempassword ต้องตรงกัน
+                }//passwordต้องไม่น้อยกว่า 8
+            }//บัตรประชาชนต้องมี 13 หลัก
         }//กรอกให้ครบ
 
 
     }
 
-    private class upDataToDB extends AsyncTask<Void, Void, String> {
+    private class Register extends AsyncTask<String, Void, String> {
 
         private static final String URLregister = "http://www.jongtalad.com/doc/register_merchants.php";
 
         @Override
-        protected String doInBackground(Void... voids) {
-
+        protected String doInBackground(String... values) {
 
 
             try {
 
                 OkHttpClient okHttpClient = new OkHttpClient();
                 RequestBody requestBody = new FormBody.Builder()
-                        .add("id_card", ID_CardString)
-                        .add("name", nameString)
-                        .add("surname", surNameString)
-                        .add("phone", phoneString)
-                        .add("username", usernameString)
-                        .add("password", passwordString)
+                        .add("id_card", values[0])
+                        .add("name", values[1])
+                        .add("surname", values[2])
+                        .add("phone", values[3])
+                        .add("username", values[4])
+                        .add("password", values[5])
                         .build();
                 Request.Builder builder = new Request.Builder();
                 Request request = builder.url(URLregister).post(requestBody).build();
@@ -143,16 +143,10 @@ public class RegisterFrom extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(s);
             Log.d("POST", s);
             if (s.equals("Done")) {
-                Toast.makeText(getApplicationContext(), "เสร็จสิ้น", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "สมัครสมาชิก สำเร็จ", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(RegisterFrom.this, MainActivity.class);
                 startActivity(intent);
             }
         }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
     }
-
 }
