@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
+
 import java.io.IOException;
 
 import okhttp3.FormBody;
@@ -36,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FirebaseMessaging.getInstance().subscribeToTopic("logined");
+        FirebaseMessaging.getInstance().subscribeToTopic("lockReserved");
         initInstances();
         btnRegisterPage.setOnClickListener(this);
         btnLoginPage.setOnClickListener(this);
@@ -97,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d("Post", "==>" + s);
             if (s.equals("1")) {
                 Toast.makeText(MainActivity.this, "Login สำเร็จ", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, MyprofileActivity.class);
+                Intent intent = new Intent(MainActivity.this, MarketList.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
             } else {
