@@ -107,7 +107,8 @@ public class RegisterFrom extends AppCompatActivity implements View.OnClickListe
 
     private class Register extends AsyncTask<String, Void, String> {
 
-        private static final String URLregister = "http://www.jongtalad.com/doc/register_merchants.php";
+//        private static final String URLregister = "http://www.jongtalad.com/doc/register_merchants.php";
+        private static final String URLregister = "192.168.43.208:3000/php/Merchants/register_merchants.php";
 
         @Override
         protected String doInBackground(String... values) {
@@ -117,10 +118,10 @@ public class RegisterFrom extends AppCompatActivity implements View.OnClickListe
 
                 OkHttpClient okHttpClient = new OkHttpClient();
                 RequestBody requestBody = new FormBody.Builder()
-                        .add("id_card", values[0])
+                        .add("idCard", values[0])
                         .add("name", values[1])
                         .add("surname", values[2])
-                        .add("phone", values[3])
+                        .add("phonenumber", values[3])
                         .add("username", values[4])
                         .add("password", values[5])
                         .build();
@@ -132,7 +133,7 @@ public class RegisterFrom extends AppCompatActivity implements View.OnClickListe
 
             } catch (Exception e) {
 
-                Log.d("upDataToDB", e.getMessage());
+                Log.d("Register", e.getMessage());
                 return e.getMessage();
             }
 
@@ -141,11 +142,13 @@ public class RegisterFrom extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.d("POST", s);
-            if (s.equals("Done")) {
+            Log.d("Register result", s);
+            if (s.equals("1")) {
                 Toast.makeText(getApplicationContext(), "สมัครสมาชิก สำเร็จ", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(RegisterFrom.this, MainActivity.class);
                 startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), "Username นี้มีอยู่ในระบบอยู่แล้ววกรุณาใช้ Username อื่น", Toast.LENGTH_SHORT).show();
             }
         }
     }
