@@ -82,13 +82,6 @@ public class RegisterFrom extends AppCompatActivity implements View.OnClickListe
                             Toast.makeText(getApplicationContext(), "กรอกหมายเลขโทรศัพท์ให้ครบ 10 หลัก", Toast.LENGTH_SHORT).show();
                         } else {
 
-                            //TODO delete later
-//                            Log.d("name", nameString);
-//                            Log.d("id", ID_CardString);
-//                            Log.d("sur", surNameString);
-//                            Log.d("user", usernameString);
-//                            Log.d("password", passwordString);
-//                            Log.d("phone", phoneString);
 
                             Register register = new Register();
                             register.execute(ID_CardString, nameString, surNameString, phoneString, usernameString, passwordString);
