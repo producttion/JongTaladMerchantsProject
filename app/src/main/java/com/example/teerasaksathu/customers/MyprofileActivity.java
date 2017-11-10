@@ -45,9 +45,9 @@ public class MyprofileActivity extends AppCompatActivity implements View.OnClick
 
     private void initInstances() {
         tvName = (TextView) findViewById(R.id.tvName);
-        tvSurname = (TextView) findViewById(R.id.tvLastname);
-        tvPhonenumber = (TextView) findViewById(R.id.tvTel);
-        btnEdit = (Button) findViewById(R.id.btnRepair);
+        tvSurname = (TextView) findViewById(R.id.tvSurname);
+        tvPhonenumber = (TextView) findViewById(R.id.tvPhonenumber);
+        btnEdit = (Button) findViewById(R.id.btnEdit);
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
