@@ -33,7 +33,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".MarketList"></activity>
+        <activity android:name=".MarketList" />
+        <activity android:name=".EditProfileActivity"></activity>
     </application>
 
 </manifest>

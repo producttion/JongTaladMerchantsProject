@@ -533,7 +533,8 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
 
                 }
             } catch (JSONException e) {
-                productTypeList = null;
+                productTypeList = new String[1];
+                productTypeList[0] = "none";
                 e.printStackTrace();
             }
 
