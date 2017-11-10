@@ -108,8 +108,6 @@ public class RegisterFrom extends AppCompatActivity implements View.OnClickListe
     private class Register extends AsyncTask<String, Void, String> {
 
         private static final String URLregister = "http://www.jongtalad.com/doc/register_merchants.php";
-
-
         @Override
         protected String doInBackground(String... values) {
 
