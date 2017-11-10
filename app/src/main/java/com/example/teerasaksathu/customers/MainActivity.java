@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingService;
 
 import java.io.IOException;
 
@@ -59,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private class Login extends AsyncTask<String, Void, String> {
-
         private static final String URL = "http://www.jongtalad.com/doc/login_merchants.php";
 
         @Override
@@ -100,9 +98,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Log.d("Post", "==>" + s);
-            if (s.equals("1")) {
+            //TODO Change .trim() get it out
+            if (s.trim().equals("1")) {
                 Toast.makeText(MainActivity.this, "Login สำเร็จ", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, LockReservation.class);
+                Intent intent = new Intent(MainActivity.this, MyprofileActivity.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
             } else {
