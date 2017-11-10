@@ -1,6 +1,8 @@
 package com.example.teerasaksathu.customers;
 
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+
 
 /**
  * Created by teerasaksathu on 11/10/2017 AD.
@@ -20,7 +24,7 @@ public class MarketListAdapter extends BaseAdapter {
 
     private Context ojdContext;
     private String[] nameMarket;
-    private String[] URLimage;
+    private String[] URLimage = {""};
     private String[] marketAddress;
 
 
@@ -65,7 +69,10 @@ public class MarketListAdapter extends BaseAdapter {
         tvAddress.setText(marketAddress[i]);
 
         ImageView imageView = ojdView.findViewById(R.id.imageView);
-        Picasso.with(viewGroup.getContext()).load(URLimage[i]).into(imageView);
+        Log.d("maxz", URLimage[i]);
+        Picasso.with(ojdView.getContext()).load(URLimage[i]).into(imageView);
+//
+
 
 
         return ojdView;
