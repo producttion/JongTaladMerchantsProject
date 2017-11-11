@@ -7,7 +7,8 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo" />
 
 
     <LinearLayout
@@ -20,21 +21,21 @@
 
 
         <TextView
-            android:textStyle="bold"
-            android:textColor="@color/text_color"
             android:id="@+id/tvNameMarket"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Market name"
-            android:textSize="30sp" />
+            android:textColor="@color/text_color"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
 
         <TextView
-            android:textColor="@color/text_color"
             android:id="@+id/tvAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Market address"
+            android:textColor="@color/text_color"
             android:textSize="20sp" />
 
 
