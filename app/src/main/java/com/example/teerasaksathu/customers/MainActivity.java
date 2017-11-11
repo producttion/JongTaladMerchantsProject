@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //TODO Change .trim() get it out
             if (s.trim().equals("1")) {
                 Toast.makeText(MainActivity.this, "Login สำเร็จ", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, MyprofileActivity.class);
+                Intent intent = new Intent(MainActivity.this, MarketList.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
             } else {
