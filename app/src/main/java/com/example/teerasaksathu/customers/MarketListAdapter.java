@@ -70,7 +70,8 @@ public class MarketListAdapter extends BaseAdapter {
 
         ImageView imageView = ojdView.findViewById(R.id.imageView);
         Log.d("maxz", URLimage[i]);
-        Picasso.with(ojdView.getContext()).load(URLimage[i]).into(imageView);
+//        Picasso.with(ojdView.getContext()).load(URLimage[i]).into(imageView);
+        Picasso.with(ojdView.getContext()).load(R.drawable.mock_market).into(imageView);
 //
 
 
