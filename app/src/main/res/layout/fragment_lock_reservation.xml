@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:padding="16dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="ผังตลาด"
+                android:textColor="@color/text_color"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/lockStatausNotOuccupied"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvA1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="8dp"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="A1"
+                    android:textColor="@color/lockNameColor" />
+
+
+                <TextView
+                    android:id="@+id/tvA2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/tvA1"
+                    android:layout_margin="8dp"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="A2"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvA3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/tvA2"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="A3"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvB1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@+id/tvD4"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="B1"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvB2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@id/tvB1"
+                    android:layout_below="@id/tvB1"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="B2"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvB3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@id/tvB2"
+                    android:layout_below="@id/tvB2"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="B3"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvC1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@+id/tvD9"
+                    android:layout_gravity="left|center_vertical|bottom"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="C1"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvC2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@id/tvC1"
+                    android:layout_below="@id/tvC1"
+                    android:layout_gravity="center_horizontal|center_vertical|bottom"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="C2"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvC3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@id/tvC2"
+                    android:layout_below="@id/tvC2"
+                    android:layout_gravity="right|center_vertical|bottom"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="C3"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvC4"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@id/tvC2"
+                    android:layout_below="@id/tvC3"
+                    android:layout_gravity="right|center_vertical|bottom"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="C4"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvC5"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@id/tvC2"
+                    android:layout_below="@id/tvC4"
+                    android:layout_gravity="right|center_vertical|bottom"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="C5"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvD1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@id/tvA1"
+                    android:layout_below="@id/tvC5"
+                    android:layout_gravity="right|center_vertical|bottom"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="D1"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvD2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/tvC5"
+                    android:layout_gravity="right|center_vertical|bottom"
+                    android:layout_toRightOf="@id/tvD1"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="D2"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvD3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/tvC5"
+                    android:layout_gravity="right|center_vertical|bottom"
+                    android:layout_toRightOf="@id/tvD2"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="D3"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvD4"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/tvC5"
+                    android:layout_gravity="right|center_vertical|bottom"
+                    android:layout_toRightOf="@id/tvD3"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="D4"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvD5"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/tvC5"
+                    android:layout_gravity="right|center_vertical|bottom"
+                    android:layout_toRightOf="@id/tvD4"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="D5"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvD6"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/tvC5"
+                    android:layout_gravity="right|center_vertical|bottom"
+                    android:layout_toRightOf="@id/tvD5"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="D6"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvD7"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/tvC5"
+                    android:layout_gravity="right|center_vertical|bottom"
+                    android:layout_toRightOf="@id/tvD6"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="D7"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvD8"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/tvC5"
+                    android:layout_gravity="right|center_vertical|bottom"
+                    android:layout_toRightOf="@id/tvD7"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="D8"
+                    android:textColor="@color/lockNameColor" />
+
+                <TextView
+                    android:id="@+id/tvD9"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/tvC5"
+                    android:layout_gravity="right|center_vertical|bottom"
+                    android:layout_toRightOf="@id/tvD8"
+                    android:background="@color/lockStatausNotOuccupied"
+                    android:gravity="center"
+                    android:text="D9"
+                    android:textColor="@color/lockNameColor" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutLockStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@color/lockStatusOuccupied" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="จอง"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@color/lockStatausNotOuccupied" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ว่าง"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutLabel"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/LinearLayoutLockStatus"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ประเภทสินค้า:"
+                        android:textColor="@color/text_color"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spProductType"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ชื่อล็อค:"
+                        android:textColor="@color/text_color"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spLock"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnReserve"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="จองล็อค" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>

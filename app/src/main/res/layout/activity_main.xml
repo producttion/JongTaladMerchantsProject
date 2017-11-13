@@ -1,94 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.teerasaksathu.customers.MainActivity">
+    tools:context="com.example.teerasaksathu.customers.activity.MainActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg" />
+    <!--Content-->
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="32dp">
-
-        <ImageView
-            android:layout_width="240dp"
-            android:layout_height="240dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/logo" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-        <LinearLayout
+        <android.support.v7.widget.Toolbar
+            android:background="@drawable/bg"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="V. พ่อค้าแม่ค้า"
-                android:textColor="@color/text_color"
-                android:textStyle="bold" />
+        </android.support.v7.widget.Toolbar>
 
-            <EditText
-                android:id="@+id/etUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Username"
-                android:inputType="text"
-                android:text="maxz123"
-                android:textColor="@color/text_color"
-                android:textColorHint="@color/text_color" />
-
-            <EditText
-                android:id="@+id/etPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:text="12345678"
-                android:textColor="@color/text_color"
-                android:textColorHint="@color/text_color" />
-
-            <TextView
-                android:id="@+id/tvForgotPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="right"
-                android:text="ลืมรหัสผ่าน ?"
-                android:textColor="@color/text_color"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-
-            <Button
-                android:id="@+id/btnLoginPage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ล็อกอิน" />
-
-            <Button
-                android:id="@+id/btnRegisterPage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="สมัครสมาชิก" />
-
-        </LinearLayout>
-
+        <FrameLayout
+            android:id="@+id/contentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
-</RelativeLayout>
+
+
+
+    <!--Menu-->
+    <LinearLayout
+        android:layout_width="@dimen/drawer_menu_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@drawable/bg"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <Button
+            android:id="@+id/btnMarketList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="รายชื่อตลาด"
+            android:text="รายชื่อตลาด" />
+
+        <Button
+            android:id="@+id/btnProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="โปรไฟล์"
+            android:text="โปรไฟล์" />
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.DrawerLayout>
