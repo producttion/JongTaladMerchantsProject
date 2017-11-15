@@ -2,4 +2,7 @@
     <string name="app_name">Merchants</string>
     <string name="open_drawer">Open Menu</string>
     <string name="close_drawer">Close Menu</string>
+    <string name="dialog_lock_reserved">จองล็อคสำเร็จ</string>
+    <string name="ok">ยืนยัน</string>
+    <string name="dialog_market_rule">Test</string>
 </resources>

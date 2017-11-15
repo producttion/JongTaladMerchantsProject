@@ -102,7 +102,6 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
     public void onClick(View view) {
         if (view == btnEdit) {
-            //TODO Change username
             Intent intent = new Intent(getActivity(), EditProfileActivity.class);
             intent.putExtra("username", username);
             startActivity(intent);

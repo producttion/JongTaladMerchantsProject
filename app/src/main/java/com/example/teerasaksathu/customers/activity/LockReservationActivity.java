@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.teerasaksathu.customers.R;
 import com.example.teerasaksathu.customers.fragment.LockReservationFragment;
+import com.example.teerasaksathu.customers.fragment.MarketRuleFragment;
+import com.example.teerasaksathu.customers.fragment.dialog.MarketRuleDialogFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +41,9 @@ public class LockReservationActivity extends AppCompatActivity{
 
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
+                    //TODO:Chnage list of fragment here
                     .add(R.id.contentContainer, LockReservationFragment.newInstance())
+                    .add(R.id.contentContainer, MarketRuleFragment.newInstance())
                     .commit();
         }
 

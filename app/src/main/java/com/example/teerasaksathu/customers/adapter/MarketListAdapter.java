@@ -1,7 +1,6 @@
 package com.example.teerasaksathu.customers.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +60,7 @@ public class MarketListAdapter extends BaseAdapter {
 
 
         LayoutInflater layoutInflater = (LayoutInflater) ojdContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View ojdView = layoutInflater.inflate(R.layout.card_actvity, viewGroup, false);
+        View ojdView = layoutInflater.inflate(R.layout.list_item_market, viewGroup, false);
 
         TextView tvNameMarket = ojdView.findViewById(R.id.tvNameMarket);
         tvNameMarket.setText(nameMarket[i]);

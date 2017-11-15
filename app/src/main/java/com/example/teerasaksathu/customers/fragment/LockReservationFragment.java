@@ -2,7 +2,6 @@ package com.example.teerasaksathu.customers.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,8 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.teerasaksathu.customers.R;
-import com.example.teerasaksathu.customers.activity.LockReservationActivity;
 import com.example.teerasaksathu.customers.activity.MainActivity;
+import com.example.teerasaksathu.customers.fragment.dialog.LockReservedDialogFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -408,7 +407,9 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
 //            Log.d("onPostSS", s);
             if (s.equals("1")) {
 
-                Toast.makeText(getActivity(), "จองล็อคสำเร็จ", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "จองล็อคสำเร็จ", Toast.LENGTH_SHORT).show();
+                LockReservedDialogFragment lockReservedDialogFragment = new LockReservedDialogFragment();
+                lockReservedDialogFragment.show(getFragmentManager(), "lockReservedDialog");
             } else {
                 Toast.makeText(getActivity(), "เกิดข้อผิดพลาด", Toast.LENGTH_LONG).show();
 
