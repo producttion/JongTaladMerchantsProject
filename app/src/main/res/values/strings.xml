@@ -5,4 +5,5 @@
     <string name="dialog_lock_reserved">จองล็อคสำเร็จ</string>
     <string name="ok">ยืนยัน</string>
     <string name="dialog_market_rule">Test</string>
+    <string name="dialog_lock_maximum_reserved">จองล็อคเกิน 3 ล็อค</string>
 </resources>

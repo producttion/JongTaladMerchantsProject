@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.teerasaksathu.customers.R;
 import com.example.teerasaksathu.customers.activity.MainActivity;
+import com.example.teerasaksathu.customers.fragment.dialog.LockMaximumReservedDialogFragment;
 import com.example.teerasaksathu.customers.fragment.dialog.LockReservedDialogFragment;
 
 import org.json.JSONArray;
@@ -203,7 +204,7 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
                 loadLockname loadLockname = new loadLockname();
                 loadLockname.execute();
 
-                setLockStatus(spLock.getSelectedItem().toString().trim(), R.color.lockStatusOuccupied);
+
             }
 
 
@@ -404,12 +405,15 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-//            Log.d("onPostSS", s);
-            if (s.equals("1")) {
+            if (s.trim().equals("1")) {
+                setLockStatus(spLock.getSelectedItem().toString().trim(), R.color.lockStatusOuccupied);
+                LockReservedDialogFragment lockReserved = new LockReservedDialogFragment();
+                lockReserved.show(getFragmentManager(), "lockReservedDialog");
+            } else if (s.trim().equals("2")) {
 
-//                Toast.makeText(getActivity(), "จองล็อคสำเร็จ", Toast.LENGTH_SHORT).show();
-                LockReservedDialogFragment lockReservedDialogFragment = new LockReservedDialogFragment();
-                lockReservedDialogFragment.show(getFragmentManager(), "lockReservedDialog");
+                LockMaximumReservedDialogFragment lockMaximumReserved = new LockMaximumReservedDialogFragment();
+                lockMaximumReserved.show(getFragmentManager(), "lockMaximumReservedDialogFragment");
+
             } else {
                 Toast.makeText(getActivity(), "เกิดข้อผิดพลาด", Toast.LENGTH_LONG).show();
 
