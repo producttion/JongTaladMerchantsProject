@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Username"
                 android:inputType="text"
-                android:text="maxz123"
+                android:text="jongtalad2017"
                 android:textColor="@color/text_color"
                 android:textColorHint="@color/text_color" />
 

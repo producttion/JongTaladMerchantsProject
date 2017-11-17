@@ -43,8 +43,7 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
     private String dataLock;
     private String timeDate;
     private String username;
-    private String name;
-    private String phonenumber;
+
 
     private TextView tvA1;
     private TextView tvA2;
@@ -95,8 +94,6 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
 
 
         username = MainActivity.intentUsername.getStringExtra("username");
-        loadUserData loadUserData = new loadUserData();
-        loadUserData.execute(username);
 
         setDataToTV setDataToTV = new setDataToTV();
         setDataToTV.execute();
@@ -199,7 +196,7 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
                 Toast.makeText(getActivity(), "Please select lock", Toast.LENGTH_LONG).show();
             } else {
                 ReserveLock reserveLock = new ReserveLock();
-                reserveLock.execute(name, phonenumber, marketName, lockName, productType, timeDate);
+                reserveLock.execute(username, marketName, lockName, productType, timeDate);
 
                 loadLockname loadLockname = new loadLockname();
                 loadLockname.execute();
@@ -324,65 +321,19 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
         lockInformation.execute(lockName, marketName, timeDate);
     }
 
-    private class loadUserData extends AsyncTask<String, Void, String> {
-        public static final String URL = "http://www.jongtalad.com/doc/load_user_data.php";
+
+    private class ReserveLock extends AsyncTask<String, Void, String> {
+        public static final String URL = "http://www.jongtalad.com/doc/lock_reservation.php";
 
         @Override
         protected String doInBackground(String... values) {
             OkHttpClient okHttpClient = new OkHttpClient();
             RequestBody requestBody = new FormBody.Builder()
                     .add("username", values[0])
-                    .build();
-            Request request = new Request.Builder()
-                    .url(URL)
-                    .post(requestBody)
-                    .build();
-            try {
-                Response response = okHttpClient.newCall(request).execute();
-                if (response.isSuccessful()) {
-                    return response.body().string();
-                } else {
-                    return "Not Success - code : " + response.code();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "Error - " + e.getMessage();
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            try {
-                JSONArray jsonArray = new JSONArray(s);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    name = (jsonObject.getString("name"));
-                    phonenumber = jsonObject.getString("phonenumber");
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private class ReserveLock extends AsyncTask<String, Void, String> {
-        public static final String URL = "http://www.jongtalad.com/doc/phpNew/lock_reservation.php";
-
-        @Override
-        protected String doInBackground(String... values) {
-            OkHttpClient okHttpClient = new OkHttpClient();
-
-            RequestBody requestBody = new FormBody.Builder()
-                    .add("merchantName", values[0])
-                    .add("merchantPhonenumber", values[1])
-                    .add("merchantSurname", "")
-                    .add("marketAdmin_username", "")
-                    .add("marketName", values[2])
-                    .add("lockName", values[3])
-                    .add("productTypeName", values[4])
-                    .add("saleDate", values[5])
+                    .add("marketName", values[1])
+                    .add("lockName", values[2])
+                    .add("productTypeName", values[3])
+                    .add("saleDate", values[4])
                     .build();
             Request request = new Request.Builder()
                     .url(URL)
@@ -423,7 +374,7 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
 
     private class setDataToTV extends AsyncTask<Void, Void, String> {
 
-        private static final String URLstatusLock = "http://www.jongtalad.com/doc/phpNew/load_lock_status.php";
+        private static final String URLstatusLock = "http://www.jongtalad.com/doc/load_lock_status.php";
 
 
         @Override
@@ -487,7 +438,7 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
     }
 
     private class loadLockname extends AsyncTask<Void, Void, String> {
-        public static final String URL = "http://www.jongtalad.com/doc/phpNew/load_lock_status.php";
+        public static final String URL = "http://www.jongtalad.com/doc/load_lock_status.php";
 
         @Override
         protected String doInBackground(Void... voids) {
@@ -543,7 +494,7 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
     }
 
     private class loadProductType extends AsyncTask<Void, Void, String> {
-        public static final String URL = "http://www.jongtalad.com/doc/phpNew/loadProductType.php";
+        public static final String URL = "http://www.jongtalad.com/doc/loadProductType.php";
 
         @Override
         protected String doInBackground(Void... voids) {
@@ -594,7 +545,7 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
     }
 
     private class loadLockInformation extends AsyncTask<String, Void, String> {
-        public static final String URL = "http://www.jongtalad.com/doc/phpNew/load_lock_information.php";
+        public static final String URL = "http://www.jongtalad.com/doc/load_lock_information.php";
 
 
         @Override
@@ -678,7 +629,7 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
     }
 
     private class cancelLockReservation extends AsyncTask<String, Void, String> {
-        public static final String URL = "http://www.jongtalad.com/doc/phpNew/cancel_lock_reservation.php";
+        public static final String URL = "http://www.jongtalad.com/doc/cancel_lock_reservation.php";
 
         @Override
         protected String doInBackground(String... values) {
