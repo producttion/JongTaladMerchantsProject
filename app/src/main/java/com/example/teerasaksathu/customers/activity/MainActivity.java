@@ -16,6 +16,7 @@ import android.widget.Button;
 import com.example.teerasaksathu.customers.R;
 import com.example.teerasaksathu.customers.fragment.MarketListFragment;
 import com.example.teerasaksathu.customers.fragment.MyProfileFragment;
+import com.example.teerasaksathu.customers.fragment.ReportFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static Intent intentUsername;
     private Button btnMarketList;
     private Button btnProfile;
+    private Button btnReport;
 
 
     @Override
@@ -60,9 +62,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnMarketList = findViewById(R.id.btnMarketList);
         btnProfile = findViewById(R.id.btnProfile);
+        btnReport = findViewById(R.id.btnReport);
 
         btnMarketList.setOnClickListener(this);
         btnProfile.setOnClickListener(this);
+        btnReport.setOnClickListener(this);
 
     }
 
@@ -89,6 +93,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 R.anim.from_left, R.anim.to_right
                         )
                         .replace(R.id.contentContainer, MyProfileFragment.newInstance())
+                        .commit();
+                drawerLayout.closeDrawers();
+            }
+        } else if (view == btnReport) {
+            if (!(fragment instanceof ReportFragment)) {
+                getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(
+                                R.anim.from_right, R.anim.to_left,
+                                R.anim.from_left, R.anim.to_right
+                        )
+                        .replace(R.id.contentContainer, ReportFragment.newInstance())
                         .commit();
                 drawerLayout.closeDrawers();
             }

@@ -1,14 +1,19 @@
 package com.example.teerasaksathu.customers.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.teerasaksathu.customers.R;
@@ -27,6 +32,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class EditProfileFragment extends Fragment implements View.OnClickListener {
     private EditText etName;
@@ -37,6 +44,7 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
     private String name;
     private String surname;
     private String phonenumber;
+    private ImageView imageView;
 
     public EditProfileFragment() {
         super();
@@ -63,13 +71,13 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
         etSurname =  rootView.findViewById(R.id.etSurname);
         etPhonenumber =  rootView.findViewById(R.id.etPhonenumber);
         btnEditConfirm =  rootView.findViewById(R.id.btnEditConfirm);
-
-
+        imageView = rootView.findViewById(R.id.imageView);
         username = EditProfileActivity.intentUsername.getStringExtra("username");
         loadUserData loadUserData = new loadUserData();
         loadUserData.execute(username);
 
         btnEditConfirm.setOnClickListener(this);
+        imageView.setOnClickListener(this);
     }
 
     @Override
@@ -112,7 +120,37 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
             EditUserData editUserData = new EditUserData();
             editUserData.execute(username, name, surname, phonenumber);
         }
+        if (view == imageView) {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(Intent.createChooser(intent,"โปรดเลือกรูป"),1);
+
+        }
     }
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if ((requestCode == 1) && (resultCode == RESULT_OK)) {
+//            Log.d("MyFrienfV1 ", "Result ==>OK");
+//
+//            //หา path รูป
+//            Uri uri = data.getData();
+//            imagePathString = myFinndPathImage(uri);
+//            Log.d("MyFrienfV1", "imagePathString ==>" + imagePathString);
+//            //result Complete
+//
+//            //Setup Image to ImageView
+//            try {
+//                Bitmap bitmap = BitmapFactory.decodeStream();
+//                imageView.setImageBitmap(bitmap);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }//try
+//
+//            statusABoolean = false;
+//        }//if
+//    }
 
     private class loadUserData extends AsyncTask<String, Void, String> {
         public static final String URL = "http://www.jongtalad.com/doc/load_user_data.php";

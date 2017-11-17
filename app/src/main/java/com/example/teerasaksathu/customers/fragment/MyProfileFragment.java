@@ -1,13 +1,21 @@
 package com.example.teerasaksathu.customers.fragment;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.teerasaksathu.customers.R;
@@ -26,8 +34,11 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class MyProfileFragment extends Fragment implements View.OnClickListener {
+
     private TextView tvName;
     private TextView tvSurname;
     private TextView tvPhonenumber;
@@ -36,6 +47,8 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     private String surname;
     private String phonenumber;
     private String username;
+
+
 
     public MyProfileFragment() {
         super();
@@ -63,7 +76,6 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         tvPhonenumber = rootView.findViewById(R.id.tvPhonenumber);
         btnEdit = rootView.findViewById(R.id.btnEdit);
         username = MainActivity.intentUsername.getStringExtra("username");
-
         loadUserData loadUserData = new loadUserData();
         loadUserData.execute(username);
 
@@ -100,15 +112,49 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         }
     }
 
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+
+//
+//
+//    }//onActivity
+//
+//
+//    private String myFinndPathImage(Uri uri) {
+//
+//
+//        String strResult = null;
+//        String[] strings = {MediaStore.Images.Media.DATA};
+//        Cursor cursor = query(uri, strings, null, null, null)
+//        if (cursor != null) {
+//
+//            cursor.moveToFirst();
+//            int intIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//            strResult = cursor.getString(intIndex);
+//
+//        } else {
+//
+//            strResult = uri.getPath();
+//
+//        }
+//        return strResult;
+//    }//myFinndPathImage
+
+
     public void onClick(View view) {
         if (view == btnEdit) {
             Intent intent = new Intent(getActivity(), EditProfileActivity.class);
             intent.putExtra("username", username);
             startActivity(intent);
         }
+
     }
 
-    private class loadUserData extends AsyncTask<String, Void, String> {
+
+
+private class loadUserData extends AsyncTask<String, Void, String> {
         public static final String URL = "http://www.jongtalad.com/doc/load_user_data.php";
 
 

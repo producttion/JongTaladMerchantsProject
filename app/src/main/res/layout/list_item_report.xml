@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <ImageView
+            android:src="@drawable/mock_market"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/imageView"
+            android:layout_width="110dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:textColor="@color/text_color"
+                android:id="@+id/nememarket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="maxz"
+                android:textSize="20sp" />
+
+            <TextView
+                android:textColor="@color/text_color"
+                android:id="@+id/dateReseration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="2012-34-45"
+                android:textSize="20sp" />
+
+            <TextView
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                android:text="@string/app_name"
+                android:id="@+id/lockName"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

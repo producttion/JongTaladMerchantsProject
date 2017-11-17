@@ -21,7 +21,8 @@ public class MarketRuleDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.dialog_market_rule)
+        builder.setTitle("กฎของการจอง");
+        builder.setMessage("จองล็อกได้ไม่เกิน 3 ล็อก "+ "\n"+ "ตัดรอบการจอง 14:00 น." )
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!

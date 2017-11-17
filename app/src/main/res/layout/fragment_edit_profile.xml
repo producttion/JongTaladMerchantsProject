@@ -29,14 +29,38 @@
                 android:textColor="@color/text_color"
                 android:textSize="30sp"
                 android:textStyle="bold" />
+<RelativeLayout
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/pc" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="240dp"
-                android:layout_height="240dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/logo" />
+    <TextView
+        android:id="@+id/myImageViewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_margin="1dp"
+        android:paddingLeft="70dp"
+        android:gravity="bottom"
+        android:text="แก้ไขรูป"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:textColor="@color/text_color" />
+
+
+</RelativeLayout>
+
 
             <TextView
                 android:layout_width="match_parent"

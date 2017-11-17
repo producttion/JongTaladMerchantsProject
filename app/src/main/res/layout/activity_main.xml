@@ -58,6 +58,15 @@
             android:contentDescription="โปรไฟล์"
             android:text="โปรไฟล์" />
 
+        <Button
+            android:id="@+id/btnReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Report"
+            android:text="Report" />
+
+
+
     </LinearLayout>
 
 

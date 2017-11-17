@@ -35,7 +35,7 @@
                 android:layout_gravity="center"
 
                 android:layout_marginTop="16dp"
-                android:src="@drawable/logo" />
+                android:src="@drawable/pc" />
 
             <TextView
                 android:layout_width="match_parent"
