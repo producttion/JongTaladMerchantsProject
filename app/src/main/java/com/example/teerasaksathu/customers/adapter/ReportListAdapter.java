@@ -29,14 +29,14 @@ public class ReportListAdapter extends BaseAdapter {
         this.ojdContext = ojdContext;
         this.nameMarket = nameMarket;
         this.date = date;
-        this.lockName = lockName;
+        this.nameMarket = lockName;
 
 
     }
 
     @Override
     public int getCount() {
-        return 10;
+        return lockName.length();
 
     }
 
