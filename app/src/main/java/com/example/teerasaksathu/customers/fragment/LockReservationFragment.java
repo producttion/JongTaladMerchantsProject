@@ -5,11 +5,13 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +39,7 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
     private Button btnReserve;
     private Spinner spProductType;
     private Spinner spLock;
+    private ImageView ivRefresh;
 
     private String lockNameForDelete;
     private String marketName = "RMUTT Walking Street";
@@ -95,8 +98,8 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
 
         username = MainActivity.intentUsername.getStringExtra("username");
 
-        setDataToTV setDataToTV = new setDataToTV();
-        setDataToTV.execute();
+        RefreshMarketlocks refreshMarketlocks = new RefreshMarketlocks();
+        refreshMarketlocks.execute();
 
         loadLockname loadLockname = new loadLockname();
         loadLockname.execute();
@@ -107,6 +110,7 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
 
         btnReserve = rootView.findViewById(R.id.btnReserve);
         spProductType = rootView.findViewById(R.id.spProductType);
+        ivRefresh = rootView.findViewById(R.id.ivRefresh);
         spLock = rootView.findViewById(R.id.spLock);
         tvDate = rootView.findViewById(R.id.date);
         tvDate.setText(timeDate);
@@ -131,6 +135,7 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
         tvD8 = rootView.findViewById(R.id.tvD8);
         tvD9 = rootView.findViewById(R.id.tvD9);
 
+        ivRefresh.setOnClickListener(this);
         tvA1.setOnClickListener(this);
         tvA2.setOnClickListener(this);
         tvA3.setOnClickListener(this);
@@ -205,6 +210,9 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
             }
 
 
+        } else if (view == ivRefresh) {
+            RefreshMarketlocks refreshMarketlocks = new RefreshMarketlocks();
+            refreshMarketlocks.execute();
         } else if (view == tvA1) {
             showLockStatus("A1");
         } else if (view == tvA2) {
@@ -356,8 +364,11 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            Log.d("ReserveLock", "onPostExecute: " + s);
             if (s.trim().equals("1")) {
                 setLockStatus(spLock.getSelectedItem().toString().trim(), R.color.lockStatusOuccupied);
+                RefreshMarketlocks refreshMarketlocks = new RefreshMarketlocks();
+                refreshMarketlocks.execute();
                 LockReservedDialogFragment lockReserved = new LockReservedDialogFragment();
                 lockReserved.show(getFragmentManager(), "lockReservedDialog");
             } else if (s.trim().equals("2")) {
@@ -372,7 +383,7 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
         }
     }
 
-    private class setDataToTV extends AsyncTask<Void, Void, String> {
+    private class RefreshMarketlocks extends AsyncTask<Void, Void, String> {
 
         private static final String URLstatusLock = "http://www.jongtalad.com/doc/load_lock_status.php";
 

@@ -58,6 +58,7 @@
                 android:textColorHint="@color/text_color" />
 
             <TextView
+                android:visibility="invisible"
                 android:id="@+id/tvForgotPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
