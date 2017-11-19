@@ -19,24 +19,24 @@ import com.squareup.picasso.Picasso;
 public class ReportListAdapter extends BaseAdapter {
 
     private Context ojdContext;
-    private String nameMarket;
-    private String date;
-    private String lockName;
+    private String[] nameMarket;
+    private String[] date;
+    private String[] lockName;
 
 
 
-    public ReportListAdapter(Context ojdContext, String nameMarket, String date, String lockName) {
+    public ReportListAdapter(Context ojdContext, String[] nameMarket, String[] date, String[] lockName) {
         this.ojdContext = ojdContext;
         this.nameMarket = nameMarket;
         this.date = date;
-        this.nameMarket = lockName;
+        this.lockName = lockName;
 
 
     }
 
     @Override
     public int getCount() {
-        return lockName.length();
+        return lockName.length;
 
     }
 
@@ -59,13 +59,13 @@ public class ReportListAdapter extends BaseAdapter {
         View ojdView = layoutInflater.inflate(R.layout.list_item_report, viewGroup, false);
 
         TextView tvNameMarket = ojdView.findViewById(R.id.nememarket);
-        tvNameMarket.setText(nameMarket);
+        tvNameMarket.setText(nameMarket[i]);
 
         TextView tvAddress = ojdView.findViewById(R.id.dateReseration);
-        tvAddress.setText(date);
+        tvAddress.setText(date[i]);
 
         TextView tvAddress1 = ojdView.findViewById(R.id.lockName);
-        tvAddress1.setText(lockName);
+        tvAddress1.setText(lockName[i]);
 //
         ImageView imageView = ojdView.findViewById(R.id.imageView);
 //        Log.d("maxz", URLimage[i]);

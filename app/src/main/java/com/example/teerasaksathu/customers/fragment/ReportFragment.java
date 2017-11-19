@@ -30,9 +30,9 @@ public class ReportFragment extends Fragment {
 
     private ListView report;
 
-    private String nameMarket;
-    private String lockName;
-    private String date;
+    private String[] nameMarket;
+    private String[] lockName;
+    private String[] date;
     private String username;
 
     public ReportFragment() {
@@ -133,11 +133,14 @@ public class ReportFragment extends Fragment {
             Log.d("REPORT_DATA",s);
             try {
                 JSONArray jsonArray = new JSONArray(s);
+                nameMarket = new String[jsonArray.length()];
+                lockName = new String[jsonArray.length()];
+                date = new String[jsonArray.length()];
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    nameMarket = jsonObject.getString("market_name");
-                    lockName = jsonObject.getString("name");
-                    date = jsonObject.getString("sale_date");
+                    nameMarket[i] = jsonObject.getString("market_name");
+                    lockName[i] = jsonObject.getString("name");
+                    date[i] = jsonObject.getString("sale_date");
 
                     ReportListAdapter reportListAdapter = new ReportListAdapter(getActivity(), nameMarket, date, lockName);
                     report.setAdapter(reportListAdapter);
