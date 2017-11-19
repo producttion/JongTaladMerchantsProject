@@ -176,6 +176,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
+                getActivity().finish();
             } else {
                 Toast.makeText(getActivity(), "Username หรือ Password ผิด", Toast.LENGTH_SHORT).show();
             }

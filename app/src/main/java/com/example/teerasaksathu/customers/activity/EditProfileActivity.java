@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,11 +20,18 @@ import android.widget.Toast;
 
 import com.example.teerasaksathu.customers.R;
 import com.example.teerasaksathu.customers.fragment.EditProfileFragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 
 import okhttp3.FormBody;
@@ -33,17 +42,20 @@ import okhttp3.Response;
 
 public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
- public static Intent intentUsername;
+    public static Intent intentUsername;
     private EditText etName;
     private EditText etSurname;
     private EditText etPhonenumber;
     private Button btnEditConfirm;
+    private Button btnUploadImage;
     private String username;
     private String name;
     private String surname;
     private String phonenumber;
-    private ImageView imageView;
-    private String imagePathString;
+    private String pictureUrl;
+    private String filePath;
+    private ImageView ivImg;
+    private StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +73,6 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -71,14 +82,14 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
             //หา path รูป
             Uri uri = data.getData();
-            imagePathString = myFindPathImage(uri);
-            Log.d("MyFrienfV1", "imagePathString ==>" + imagePathString);
+            filePath = myFindPathImage(uri);
+            Log.d("MyFrienfV1", "imagePathString ==>" + filePath);
             //result Complete
 
             //Setup Image to ImageView
             try {
                 Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-                imageView.setImageBitmap(bitmap);
+                ivImg.setImageBitmap(bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
             }//try
@@ -109,19 +120,20 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     }//myFindPathImage
 
     private void initInstances() {
-
-     intentUsername = getIntent();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+        intentUsername = getIntent();
         etName = findViewById(R.id.etName);
         etSurname = findViewById(R.id.etSurname);
         etPhonenumber = findViewById(R.id.etPhonenumber);
         btnEditConfirm = findViewById(R.id.btnEditConfirm);
-        imageView = findViewById(R.id.imageView);
+        btnUploadImage = findViewById(R.id.btnUploadImage);
+        ivImg = findViewById(R.id.imageView);
         username = EditProfileActivity.intentUsername.getStringExtra("username");
         loadUserData loadUserData = new loadUserData();
         loadUserData.execute(username);
 
         btnEditConfirm.setOnClickListener(this);
-        imageView.setOnClickListener(this);
+        btnUploadImage.setOnClickListener(this);
     }
 
     @Override
@@ -131,12 +143,43 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             String surname = etSurname.getText().toString().trim();
             String phonenumber = etPhonenumber.getText().toString().trim();
 
+            if (filePath != null) {
+                Log.d("UploadImage", "Image has a path");
+                mStorageRef = FirebaseStorage.getInstance().getReference();
+                Uri file = Uri.fromFile(new File(filePath));
+                StorageReference riversRef = mStorageRef.child("Merchants/" + username);
+
+                riversRef.putFile(file)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // Get a URL to the uploaded content
+                                Uri pictureUrl = taskSnapshot.getDownloadUrl();
+                                Log.d("UploadImage", "Image uploaded : " + pictureUrl);
+
+                                UploadProfileImage uploadProfileImage = new UploadProfileImage();
+                                uploadProfileImage.execute(username, pictureUrl.toString());
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle unsuccessful uploads
+                                // ...
+                                Log.d("UploadImage", "Fail to upload image");
+
+                            }
+                        });
+
+            }
             EditUserData editUserData = new EditUserData();
             editUserData.execute(username, name, surname, phonenumber);
+
         }
-        if (view == imageView) {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        if (view == btnUploadImage) {
+            Intent intent = new Intent();
             intent.setType("image/*");
+            intent.setAction(Intent.ACTION_PICK);
             startActivityForResult(Intent.createChooser(intent, "โปรดเลือกรูป"), 1);
 
         }
@@ -181,6 +224,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     name = jsonObject.getString("name");
                     surname = jsonObject.getString("surname");
                     phonenumber = jsonObject.getString("phonenumber");
+                    pictureUrl = jsonObject.getString("picture_url");
                 }
 
             } catch (JSONException e) {
@@ -190,6 +234,19 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             etName.setText(name);
             etSurname.setText(surname);
             etPhonenumber.setText(phonenumber);
+            try {
+
+                Picasso.with(EditProfileActivity.this)
+                        .load(pictureUrl)
+                        .placeholder(R.drawable.placeholder)
+                        .into(ivImg);
+
+            } catch (IllegalArgumentException e) {
+
+                Picasso.with(EditProfileActivity.this)
+                        .load(R.drawable.pc)
+                        .into(ivImg);
+            }
 
         }
     }
@@ -206,6 +263,47 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     .add("name", values[1])
                     .add("surname", values[2])
                     .add("phonenumber", values[3])
+                    .build();
+            Request request = new Request.Builder()
+                    .url(URL)
+                    .post(requestBody)
+                    .build();
+            try {
+                Response response = okHttpClient.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    return response.body().string();
+                } else {
+                    return "Not Success - code : " + response.code();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Error - " + e.getMessage();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s.trim().equals("1")) {
+                Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
+            } else {
+                Toast.makeText(EditProfileActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private class UploadProfileImage extends AsyncTask<String, Void, String> {
+        public static final String URL = "http://www.jongtalad.com/doc/upload_profile_image.php";
+
+
+        @Override
+        protected String doInBackground(String... values) {
+            OkHttpClient okHttpClient = new OkHttpClient();
+            RequestBody requestBody = new FormBody.Builder()
+                    .add("username", values[0])
+                    .add("pictureUrl", values[1])
                     .build();
             Request request = new Request.Builder()
                     .url(URL)

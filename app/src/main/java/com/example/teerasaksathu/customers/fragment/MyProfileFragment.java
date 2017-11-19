@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.example.teerasaksathu.customers.R;
 import com.example.teerasaksathu.customers.activity.EditProfileActivity;
 import com.example.teerasaksathu.customers.activity.MainActivity;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,7 +48,8 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     private String surname;
     private String phonenumber;
     private String username;
-
+    private String pictureUrl;
+    private ImageView ivImg;
 
 
     public MyProfileFragment() {
@@ -72,9 +74,10 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
         tvName = rootView.findViewById(R.id.tvName);
-        tvSurname =  rootView.findViewById(R.id.tvSurname);
+        tvSurname = rootView.findViewById(R.id.tvSurname);
         tvPhonenumber = rootView.findViewById(R.id.tvPhonenumber);
         btnEdit = rootView.findViewById(R.id.btnEdit);
+        ivImg = rootView.findViewById(R.id.ivImg);
         username = MainActivity.intentUsername.getStringExtra("username");
         loadUserData loadUserData = new loadUserData();
         loadUserData.execute(username);
@@ -153,8 +156,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     }
 
 
-
-private class loadUserData extends AsyncTask<String, Void, String> {
+    private class loadUserData extends AsyncTask<String, Void, String> {
         public static final String URL = "http://www.jongtalad.com/doc/load_user_data.php";
 
 
@@ -191,6 +193,7 @@ private class loadUserData extends AsyncTask<String, Void, String> {
                     name = jsonObject.getString("name");
                     surname = jsonObject.getString("surname");
                     phonenumber = jsonObject.getString("phonenumber");
+                    pictureUrl = jsonObject.getString("picture_url");
                 }
 
             } catch (JSONException e) {
@@ -200,6 +203,21 @@ private class loadUserData extends AsyncTask<String, Void, String> {
             tvName.setText(name);
             tvSurname.setText(surname);
             tvPhonenumber.setText(phonenumber);
+
+            try {
+
+                Picasso.with(getActivity())
+                        .load(pictureUrl)
+                        .placeholder(R.drawable.placeholder)
+                        .into(ivImg);
+
+            } catch (IllegalArgumentException e) {
+
+                Picasso.with(getActivity())
+                        .load(R.drawable.pc)
+                        .into(ivImg);
+            }
+
 
         }
     }
