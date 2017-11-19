@@ -1,11 +1,14 @@
 package com.example.teerasaksathu.customers.fragment;
 
+import android.content.ContentProvider;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,9 +71,9 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
         etName = rootView.findViewById(R.id.etName);
-        etSurname =  rootView.findViewById(R.id.etSurname);
-        etPhonenumber =  rootView.findViewById(R.id.etPhonenumber);
-        btnEditConfirm =  rootView.findViewById(R.id.btnEditConfirm);
+        etSurname = rootView.findViewById(R.id.etSurname);
+        etPhonenumber = rootView.findViewById(R.id.etPhonenumber);
+        btnEditConfirm = rootView.findViewById(R.id.btnEditConfirm);
         imageView = rootView.findViewById(R.id.imageView);
         username = EditProfileActivity.intentUsername.getStringExtra("username");
         loadUserData loadUserData = new loadUserData();
@@ -123,34 +126,57 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
         if (view == imageView) {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
-            startActivityForResult(Intent.createChooser(intent,"โปรดเลือกรูป"),1);
+            startActivityForResult(Intent.createChooser(intent, "โปรดเลือกรูป"), 1);
 
         }
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if ((requestCode == 1) && (resultCode == RESULT_OK)) {
-//            Log.d("MyFrienfV1 ", "Result ==>OK");
-//
-//            //หา path รูป
-//            Uri uri = data.getData();
-//            imagePathString = myFinndPathImage(uri);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == 1) && (resultCode == RESULT_OK)) {
+            Log.d("MyFrienfV1 ", "Result ==>OK");
+
+            //หา path รูป
+            Uri uri = data.getData();
+            Log.d("data", String.valueOf(uri));
+//            String imagePathString = myFinndPathImage(uri);
 //            Log.d("MyFrienfV1", "imagePathString ==>" + imagePathString);
-//            //result Complete
-//
-//            //Setup Image to ImageView
-//            try {
+            //result Complete
+
+            //Setup Image to ImageView
+            try {
 //                Bitmap bitmap = BitmapFactory.decodeStream();
 //                imageView.setImageBitmap(bitmap);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }//try
+            } catch (Exception e) {
+                e.printStackTrace();
+            }//try
+
+
+        }//if
+    }
+
+//    private String myFinndPathImage(Uri uri) {
 //
-//            statusABoolean = false;
-//        }//if
+//        String strResult = null;
+//        String[] strings = {MediaStore.Images.Media.DATA};
+//        try (Cursor cursor = getContentResolver().query(uri, strings, null, null, null)) {
+//            if (cursor != null) {
+//
+//                cursor.moveToFirst();
+//                int intIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//                strResult = cursor.getString(intIndex);
+//
+//            } else {
+//
+//                strResult = uri.getPath();
+//
+//            }
+//        }
+//
+//        return null;
 //    }
+
 
     private class loadUserData extends AsyncTask<String, Void, String> {
         public static final String URL = "http://www.jongtalad.com/doc/load_user_data.php";

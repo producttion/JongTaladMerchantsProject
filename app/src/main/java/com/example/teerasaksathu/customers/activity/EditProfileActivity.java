@@ -1,16 +1,19 @@
 package com.example.teerasaksathu.customers.activity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.teerasaksathu.customers.R;
@@ -28,20 +31,30 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
  public static Intent intentUsername;
+    private EditText etName;
+    private EditText etSurname;
+    private EditText etPhonenumber;
+    private Button btnEditConfirm;
+    private String username;
+    private String name;
+    private String surname;
+    private String phonenumber;
+    private ImageView imageView;
+    private String imagePathString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.contentContainer, EditProfileFragment.newInstance())
-                    .commit();
-        }
+//        if(savedInstanceState == null){
+//            getSupportFragmentManager().beginTransaction()
+//                    .add(R.id.contentContainer, EditProfileFragment.newInstance())
+//                    .commit();
+//        }
         initInstances();
 
 
@@ -49,34 +62,179 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if ((requestCode == 1) && (resultCode == RESULT_OK)) {
-//            Log.d("MyFrienfV1 ", "Result ==>OK");
-//
-//            //หา path รูป
-//            Uri uri = data.getData();
-//            imagePathString = myFinndPathImage(uri);
-//            Log.d("MyFrienfV1", "imagePathString ==>" + imagePathString);
-//            //result Complete
-//
-//            //Setup Image to ImageView
-//            try {
-//                Bitmap bitmap = BitmapFactory.decodeStream(get);
-//                imageView.setImageBitmap(bitmap);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }//try
-//
-//            statusABoolean = false;
-//        }//if
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ((requestCode == 1) && (resultCode == RESULT_OK)) {
+            Log.d("MyFrienfV1 ", "Result ==>OK");
+
+            //หา path รูป
+            Uri uri = data.getData();
+            imagePathString = myFindPathImage(uri);
+            Log.d("MyFrienfV1", "imagePathString ==>" + imagePathString);
+            //result Complete
+
+            //Setup Image to ImageView
+            try {
+                Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+                imageView.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }//try
+
+
+        }//if
+    }
+
+
+    private String myFindPathImage(Uri uri) {
+
+
+        String strResult = null;
+        String[] strings = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, strings, null, null, null);
+        if (cursor != null) {
+
+            cursor.moveToFirst();
+            int intIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            strResult = cursor.getString(intIndex);
+
+        } else {
+
+            strResult = uri.getPath();
+
+        }
+        return strResult;
+    }//myFindPathImage
 
     private void initInstances() {
 
      intentUsername = getIntent();
+        etName = findViewById(R.id.etName);
+        etSurname = findViewById(R.id.etSurname);
+        etPhonenumber = findViewById(R.id.etPhonenumber);
+        btnEditConfirm = findViewById(R.id.btnEditConfirm);
+        imageView = findViewById(R.id.imageView);
+        username = EditProfileActivity.intentUsername.getStringExtra("username");
+        loadUserData loadUserData = new loadUserData();
+        loadUserData.execute(username);
+
+        btnEditConfirm.setOnClickListener(this);
+        imageView.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == btnEditConfirm) {
+            String name = etName.getText().toString().trim();
+            String surname = etSurname.getText().toString().trim();
+            String phonenumber = etPhonenumber.getText().toString().trim();
+
+            EditUserData editUserData = new EditUserData();
+            editUserData.execute(username, name, surname, phonenumber);
+        }
+        if (view == imageView) {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(Intent.createChooser(intent, "โปรดเลือกรูป"), 1);
+
+        }
+
+    }
+
+
+    private class loadUserData extends AsyncTask<String, Void, String> {
+        public static final String URL = "http://www.jongtalad.com/doc/load_user_data.php";
+
+
+        @Override
+        protected String doInBackground(String... values) {
+            OkHttpClient okHttpClient = new OkHttpClient();
+            RequestBody requestBody = new FormBody.Builder()
+                    .add("username", values[0])
+                    .build();
+            Request request = new Request.Builder()
+                    .url(URL)
+                    .post(requestBody)
+                    .build();
+            try {
+                Response response = okHttpClient.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    return response.body().string();
+                } else {
+                    return "Not Success - code : " + response.code();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Error - " + e.getMessage();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            try {
+                JSONArray jsonArray = new JSONArray(s);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    name = jsonObject.getString("name");
+                    surname = jsonObject.getString("surname");
+                    phonenumber = jsonObject.getString("phonenumber");
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            etName.setText(name);
+            etSurname.setText(surname);
+            etPhonenumber.setText(phonenumber);
+
+        }
+    }
+
+    private class EditUserData extends AsyncTask<String, Void, String> {
+        public static final String URL = "http://www.jongtalad.com/doc/edit_user_data.php";
+
+
+        @Override
+        protected String doInBackground(String... values) {
+            OkHttpClient okHttpClient = new OkHttpClient();
+            RequestBody requestBody = new FormBody.Builder()
+                    .add("username", values[0])
+                    .add("name", values[1])
+                    .add("surname", values[2])
+                    .add("phonenumber", values[3])
+                    .build();
+            Request request = new Request.Builder()
+                    .url(URL)
+                    .post(requestBody)
+                    .build();
+            try {
+                Response response = okHttpClient.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    return response.body().string();
+                } else {
+                    return "Not Success - code : " + response.code();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Error - " + e.getMessage();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s.trim().equals("1")) {
+                Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
+            } else {
+                Toast.makeText(EditProfileActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 
