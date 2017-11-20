@@ -19,6 +19,7 @@ import com.example.teerasaksathu.customers.R;
 import com.example.teerasaksathu.customers.fragment.MarketListFragment;
 import com.example.teerasaksathu.customers.fragment.MyProfileFragment;
 import com.example.teerasaksathu.customers.fragment.ReportFragment;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -112,7 +113,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .commit();
                 drawerLayout.closeDrawers();
             }
-        } else if (view == btnLogout){
+        } else if (view == btnLogout) {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("logined");
             SharedPreferences prefs = getSharedPreferences("user_token", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("logined", null);

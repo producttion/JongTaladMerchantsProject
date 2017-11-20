@@ -16,6 +16,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.example.teerasaksathu.customers.R;
 import com.example.teerasaksathu.customers.activity.LoginActivity;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -41,6 +42,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         sendNotification(notification, data);
 
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("lockReserved");
+
     }
 
     private void sendNotification(RemoteMessage.Notification notification, Map<String, String> data) {
@@ -61,7 +64,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setColor(Color.GREEN)
                 .setLights(Color.GREEN, 1000, 300)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setSmallIcon(R.mipmap.ic_launcher); // logo error NEED REDESIGN
+                .setSmallIcon(R.drawable.logo); // logo error NEED REDESIGN
 
         try {
             String picture_url = data.get("picture_url");
@@ -81,7 +84,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Notification Channel is required for Android O and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
-                    "channel_id", "channel_name", NotificationManager.IMPORTANCE_DEFAULT
+                    "channel_id"
+                    , "channel_name"
+                    , NotificationManager.IMPORTANCE_DEFAULT
             );
             channel.setDescription("channel description");
             channel.setShowBadge(true);

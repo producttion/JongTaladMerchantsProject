@@ -60,7 +60,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
-        FirebaseMessaging.getInstance().subscribeToTopic("logined");
+
 
 
         btnRegisterPage = rootView.findViewById(R.id.btnRegisterPage);
@@ -174,6 +174,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             Log.d("Post", "==>" + s);
             //TODO Change .trim() get it out
             if (s.trim().equals("1")) {
+                FirebaseMessaging.getInstance().subscribeToTopic("logined");
                 Toast.makeText(getActivity(), "Login สำเร็จ", Toast.LENGTH_SHORT).show();
                 SharedPreferences prefs = getActivity().getSharedPreferences("user_token", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
