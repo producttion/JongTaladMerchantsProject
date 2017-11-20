@@ -26,9 +26,10 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             intent.putExtra("username", loginToken);
             startActivity(intent);
+            finish();
         }
 
-         if (savedInstanceState == null) {
+        else if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, LoginFragment.newInstance())
                     .commit();

@@ -177,7 +177,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), "Login สำเร็จ", Toast.LENGTH_SHORT).show();
                 SharedPreferences prefs = getActivity().getSharedPreferences("user_token", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("logined", username );
+                editor.putString("logined", username);
                 editor.apply();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("username", username);
