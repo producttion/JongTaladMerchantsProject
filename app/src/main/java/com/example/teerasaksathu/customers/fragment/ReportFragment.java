@@ -33,6 +33,7 @@ public class ReportFragment extends Fragment {
     private String[] nameMarket;
     private String[] lockName;
     private String[] date;
+    private String[] pictureUrl;
     private String username;
 
     public ReportFragment() {
@@ -56,7 +57,7 @@ public class ReportFragment extends Fragment {
 
     private void initInstances(View rootView) {
         username = MainActivity.intentUsername.getStringExtra("username");
-        report = rootView.findViewById(R.id.reportList);
+        report = rootView.findViewById(R.id.lvReservedHistoryList);
         load_Reprot_data load_reprot_data = new load_Reprot_data();
         load_reprot_data.execute(username);
         // Init 'View' instance(s) with rootView.findViewById here
@@ -94,7 +95,7 @@ public class ReportFragment extends Fragment {
 
     }
 
-    private class load_Reprot_data extends AsyncTask<String,Void,String> {
+    private class load_Reprot_data extends AsyncTask<String, Void, String> {
 
         public static final String URL = "http://www.jongtalad.com/doc/load_lock_reservation_history.php";
 
@@ -130,21 +131,24 @@ public class ReportFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.d("REPORT_DATA",s);
+            Log.d("REPORT_DATA", s);
             try {
                 JSONArray jsonArray = new JSONArray(s);
                 nameMarket = new String[jsonArray.length()];
                 lockName = new String[jsonArray.length()];
                 date = new String[jsonArray.length()];
+                pictureUrl = new String[jsonArray.length()];
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     nameMarket[i] = jsonObject.getString("market_name");
                     lockName[i] = jsonObject.getString("name");
                     date[i] = jsonObject.getString("sale_date");
+                    pictureUrl[i] = jsonObject.getString("picture_url");
 
-                    ReportListAdapter reportListAdapter = new ReportListAdapter(getActivity(), nameMarket, date, lockName);
-                    report.setAdapter(reportListAdapter);
+                    Log.d("ReportPage", "onPostExecute: " + nameMarket[i]);
                 }
+                ReportListAdapter reportListAdapter = new ReportListAdapter(getActivity(), nameMarket, date, lockName, pictureUrl);
+                report.setAdapter(reportListAdapter);
 
             } catch (JSONException e) {
                 e.printStackTrace();

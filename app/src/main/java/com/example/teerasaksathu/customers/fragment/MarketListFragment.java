@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.teerasaksathu.customers.R;
@@ -31,7 +30,7 @@ import okhttp3.Response;
 public class MarketListFragment extends Fragment {
     ListView marketList;
     String[] nameMarket, marketAddress;
-    String[] URLimage;
+    String[] pictureUrl;
 
 
     public MarketListFragment() {
@@ -142,31 +141,30 @@ public class MarketListFragment extends Fragment {
             try {
                 JSONArray jsonArray = new JSONArray(s);
                 nameMarket = new String[jsonArray.length()];
-                URLimage = new String[jsonArray.length()];
+                pictureUrl = new String[jsonArray.length()];
                 marketAddress = new String[jsonArray.length()];
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     nameMarket[i] = (jsonObject.getString("name"));
-                    URLimage[i] = (jsonObject.getString("picture_url"));
+                    pictureUrl[i] = (jsonObject.getString("picture_url"));
                     marketAddress[i] = (jsonObject.getString("address"));
-//
-                    MarketListAdapter marketListAdapter = new MarketListAdapter(getActivity(), nameMarket, URLimage, marketAddress);
-                    marketList.setAdapter(marketListAdapter);
-
                 }
+
+                MarketListAdapter marketListAdapter = new MarketListAdapter(getActivity(), nameMarket, pictureUrl, marketAddress, pictureUrl);
+                marketList.setAdapter(marketListAdapter);
 
             } catch (JSONException e) {
                 nameMarket = new String[1];
-                URLimage = new String[1];
+                pictureUrl = new String[1];
                 marketAddress = new String[1];
 
                 nameMarket[0] = "none";
-                URLimage[0] = "none";
+                pictureUrl[0] = "none";
                 marketAddress[0] = "none";
 
                 e.printStackTrace();
             }
-            Log.d("Uri", String.valueOf(URLimage));
+            Log.d("Uri", String.valueOf(pictureUrl));
 
 
         }

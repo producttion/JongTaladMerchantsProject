@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import com.example.teerasaksathu.customers.R;
 import com.example.teerasaksathu.customers.fragment.LockReservationFragment;
 import com.example.teerasaksathu.customers.fragment.MarketListFragment;
+import com.example.teerasaksathu.customers.fragment.MarketRuleFragment;
 
 /**
  * Created by Naetirat on 11/15/2017.

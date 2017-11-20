@@ -26,13 +26,15 @@ public class MarketListAdapter extends BaseAdapter {
     private String[] nameMarket;
     private String[] URLimage = {""};
     private String[] marketAddress;
+    private String[] pictureUrl;
 
 
-    public MarketListAdapter(Context ojdContext, String[] nameMarket, String[] URLimage ,String[] marketAddress) {
+    public MarketListAdapter(Context ojdContext, String[] nameMarket, String[] URLimage ,String[] marketAddress, String[] pictureUrl) {
         this.ojdContext = ojdContext;
         this.nameMarket = nameMarket;
         this.URLimage = URLimage;
         this.marketAddress = marketAddress;
+        this.pictureUrl = pictureUrl;
 
     }
 
@@ -70,9 +72,20 @@ public class MarketListAdapter extends BaseAdapter {
 
         ImageView imageView = ojdView.findViewById(R.id.imageView);
         Log.d("maxz", URLimage[i]);
-//        Picasso.with(ojdView.getContext()).load(URLimage[i]).into(imageView);
-        Picasso.with(ojdView.getContext()).load(R.drawable.mock_market).into(imageView);
-//
+
+
+
+        try {
+            Picasso.with(viewGroup.getContext())
+                    .load(pictureUrl[i])
+                    .placeholder(R.drawable.mock_market)
+                    .into(imageView);
+        } catch (IllegalArgumentException e) {
+            Picasso.with(viewGroup.getContext())
+                    .load(R.drawable.mock_market)
+                    .into(imageView);
+        }
+
 
 
 

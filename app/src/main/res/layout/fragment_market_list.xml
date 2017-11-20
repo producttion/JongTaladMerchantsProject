@@ -9,10 +9,22 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg" />
 
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:text="รายชื่อตลาด"
+        android:textColor="@color/text_color"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
     <ListView
         android:id="@+id/marketList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/tvHeader"
         android:padding="8dp">
 
     </ListView>

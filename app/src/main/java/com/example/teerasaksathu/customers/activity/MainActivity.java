@@ -1,6 +1,8 @@
 package com.example.teerasaksathu.customers.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnMarketList;
     private Button btnProfile;
     private Button btnReport;
+    private Button btnLogout;
 
 
     @Override
@@ -63,10 +66,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnMarketList = findViewById(R.id.btnMarketList);
         btnProfile = findViewById(R.id.btnProfile);
         btnReport = findViewById(R.id.btnReport);
+        btnLogout = findViewById(R.id.btnLogout);
 
         btnMarketList.setOnClickListener(this);
         btnProfile.setOnClickListener(this);
         btnReport.setOnClickListener(this);
+        btnLogout.setOnClickListener(this);
 
     }
 
@@ -107,6 +112,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .commit();
                 drawerLayout.closeDrawers();
             }
+        } else if (view == btnLogout){
+            SharedPreferences prefs = getSharedPreferences("user_token", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("logined", null);
+            editor.apply();
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 

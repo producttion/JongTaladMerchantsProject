@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.example.teerasaksathu.customers.R;
 import com.example.teerasaksathu.customers.activity.MainActivity;
 import com.example.teerasaksathu.customers.fragment.dialog.LockMaximumReservedDialogFragment;
 import com.example.teerasaksathu.customers.fragment.dialog.LockReservedDialogFragment;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -211,8 +213,11 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
 
 
         } else if (view == ivRefresh) {
+
+
             RefreshMarketlocks refreshMarketlocks = new RefreshMarketlocks();
             refreshMarketlocks.execute();
+
         } else if (view == tvA1) {
             showLockStatus("A1");
         } else if (view == tvA2) {
@@ -366,6 +371,7 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
             super.onPostExecute(s);
             Log.d("ReserveLock", "onPostExecute: " + s);
             if (s.trim().equals("1")) {
+                FirebaseMessaging.getInstance().subscribeToTopic("lockReserved");
                 setLockStatus(spLock.getSelectedItem().toString().trim(), R.color.lockStatusOuccupied);
                 RefreshMarketlocks refreshMarketlocks = new RefreshMarketlocks();
                 refreshMarketlocks.execute();

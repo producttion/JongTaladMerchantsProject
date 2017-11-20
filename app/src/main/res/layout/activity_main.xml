@@ -65,6 +65,18 @@
             android:contentDescription="Report"
             android:text="Report" />
 
+        <View
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Logout"
+            android:text="Logout" />
+
 
 
     </LinearLayout>

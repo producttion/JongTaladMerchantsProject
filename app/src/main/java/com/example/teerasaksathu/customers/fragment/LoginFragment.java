@@ -1,6 +1,8 @@
 package com.example.teerasaksathu.customers.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -59,7 +61,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
         FirebaseMessaging.getInstance().subscribeToTopic("logined");
-        FirebaseMessaging.getInstance().subscribeToTopic("lockReserved");
+
 
         btnRegisterPage = rootView.findViewById(R.id.btnRegisterPage);
         btnLoginPage = rootView.findViewById(R.id.btnLoginPage);
@@ -173,6 +175,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             //TODO Change .trim() get it out
             if (s.trim().equals("1")) {
                 Toast.makeText(getActivity(), "Login สำเร็จ", Toast.LENGTH_SHORT).show();
+                SharedPreferences prefs = getActivity().getSharedPreferences("user_token", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("logined", username );
+                editor.apply();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
