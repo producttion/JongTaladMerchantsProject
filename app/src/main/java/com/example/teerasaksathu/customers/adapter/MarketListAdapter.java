@@ -41,7 +41,7 @@ public class MarketListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return nameMarket.length;
+        return 1;
 
     }
 
